@@ -1,4 +1,3 @@
-
 window.onscroll = function() {myFunction()};
 
 var navbar = document.querySelector('.navbar');
@@ -21,6 +20,9 @@ function scrollToContact() {
 }
 
 function goToPreviousJobs() {
-    window.open('PreviousJobs.html'); // Reemplaza con tu enlace
+    // Navega en la misma pestaña a Boton2.html
+    window.location.href = 'Boton2.html';
+    // Si no quieres que la página anterior quede en el historial usa:
+    // window.location.replace('Boton2.html');
 }
 

@@ -1,42 +1,123 @@
 @import url('https://use.fontawesome.com/releases/v6.4.2/css/all.css');
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Raleway&family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Outfit", sans-serif;
     margin: 0;
     background: #333333;
     color: #ffffff;
-    background-image: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,1)), url("media/codepattern2.jpg");
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0,0,0,0.6)), url("media/comic-book-background-a09lfl6egxpsqgwc.jpg");
     background-repeat: repeat;
     background-position: center center;
     background-blend-mode: multiply;
 }
 
-h1{font-size: 50px;     font-family: 'Dela Gothic One', cursive;}
-a {text-decoration: none;}
-h2{font-size: 50px;}
-h3{font-size: 25px;}
-p{font-size: 25px;}
+
+h1 {
+    font-size: 50px;
+    font-family: "Outfit", sans-serif;;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+p {
+    font-size: 25px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.color-acento {
+    color: rgb(5, 5, 99);
+}
+
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============ HEADER ============ */
+header {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2));
+    background-repeat: repeat;
+    background-position: center center;
+}
 
 .navbar {
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Cambiado a un color más transparente */
+    background-color: rgba(0, 0, 0, 0.1);
     top: 0;
     z-index: 1000;
-    padding: 10px 0; /* Añadido un poco de espacio alrededor del contenido */
+    padding: 10px 0;
 }
 
 .navbar a {
-    color: white; /* Cambiado el color de los enlaces para mayor contraste */
+    color: rgb(0, 0, 0);
 }
 
-/* The CSS code `button{ ... }` is defining the styles for all `<button>` elements in the HTML
-document. */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 10px;
+}
+
+/* ============ LOGO ============ */
+.logo, .header .logo {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.logo img,
+.logo-img {
+    padding-bottom: 20px;
+    width: 100px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 6px;
+}
+
+@media (max-width: 480px) {
+    .logo-img {
+        width: 72px;
+    }
+}
+
+@media (max-width: 767px) {
+    .logo img,
+    .logo-img {
+        max-width: 120px;
+        padding-bottom: 10px;
+        margin-top: 4px;
+    }
+
+    .logo {
+        margin-top: 6px;
+    }
+}
+
+/* ============ BOTONES ============ */
 .btn {
     position: relative;
     width: 11rem;
@@ -47,219 +128,166 @@ document. */
     background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
     font-size: 1.2rem;
     font-weight: 550;
-    font-family: sans-serif;
+    font-family: "Outfit", sans-serif;
     letter-spacing: 1px;
     transition: all 0.3s;
-  }
+}
 
-  
-  .btn:hover {
-    background: #ffffff;
+.btn:hover {
     background: linear-gradient(135deg, #BD8D62 0%, #473621 100%);
     color: white;
     font-size: 1.3rem;
-  }
-
-
-/* The `.container` class sets the maximum width of an element to 1400 pixels and centers it
-horizontally using `margin: auto;`. This is commonly used to create a responsive layout where the
-content is centered and has a maximum width on larger screens. */
-.container{ 
-    max-width: 1400px;
-    margin: auto;
 }
 
-.color-acento{color: rgb(5, 5, 99);}
-
-
-/* Header section is the one that displays above the hero section */
-    header{
-        background-image: linear-gradient(
-            0deg,
-            rgba(0,0,0,0.1),
-            rgba(0,0,0,0.9)
-        )
-;
-        background-repeat: repeat;
-        background-position: center center;
-        background-blend-mode: normal ; /* Añadida esta línea */
-    }
-
-
-
-/* Estilos generales para tu logo */
-.logo img {
-    vertical-align: middle;
-    padding-bottom: 20px;
+.aboutmebtn,
+.previousjobsbtn,
+.contactbtn {
+    min-width: 150px;
+    width: 30%;
+    max-width: 200px;
+    height: 60px;
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    font-family: "Outfit", sans-serif;
+    font-weight: bold;
+    color: white;
+    /* transiciones más suaves y específicas */
+    transition: background 0.45s cubic-bezier(.2,.8,.2,1),
+                color 0.3s ease,
+                transform 0.25s ease,
+                box-shadow 0.45s cubic-bezier(.2,.8,.2,1);
+    will-change: background, transform, box-shadow;
 }
 
-/* Estilos específicos para dispositivos móviles */
+.aboutmebtn:hover,
+.previousjobsbtn:hover,
+.contactbtn:hover {
+    background: linear-gradient(to top, rgb(5,5,99) 0%, rgb(5,5,99) 100%) !important;
+    color: #fff !important;
+    transform: translateY(3px);
+    box-shadow: 0 20px 30px -10px rgba(5,5,99,0.45) !important;
+}
+
+.aboutmebtn:active,
+.previousjobsbtn:active,
+.contactbtn:active {
+    opacity: 0.5;
+}
+
+.aboutmebtn {
+    background: linear-gradient(to top, #ffbf00 0%, #ffbf00 100%);
+    box-shadow: 0 15px 20px -6px rgba(255, 191, 0, 0.45);
+    color: #111;
+}
+
+.previousjobsbtn {
+    background: linear-gradient(to top, #ffbf00 0%, #ffbf00 100%);
+    box-shadow: 0 15px 20px -6px rgba(255, 191, 0, 0.45);
+    color: #111;
+}
+
+.contactbtn {
+    background: linear-gradient(to top, #ffbf00 0%, #ffbf00 100%);
+    box-shadow: 0 15px 20px -6px rgba(255, 191, 0, 0.45);
+    color: #111;
+}
+
+.btn-hero {
+    width: 200px !important;
+    height: 60px !important;
+    font-size: 1.3rem !important;
+    background: linear-gradient(to top, #ffbf00 0%, #ffbf00 100%) !important;
+    color: #111 !important;
+    box-shadow: 0 15px 20px -6px rgba(255, 191, 0, 0.45) !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-hero:hover {
+    background: linear-gradient(to top, #e6a800 0%, #e6a800 100%) !important;
+    transform: translateY(3px);
+}
+
 @media (max-width: 767px) {
-    .logo img {
-        max-width: 100%; /* Hace que la imagen sea 100% del ancho del contenedor */
-        height: auto; /* Permite que la altura se ajuste automáticamente */
-        padding-bottom: 10px; /* Ajusta el espacio alrededor de la imagen si es necesario */
-        max-width: 120px;
+    .aboutmebtn,
+    .previousjobsbtn,
+    .contactbtn {
+        min-width: fit-content;
+        max-width: fit-content;
+        min-height: 40px;
+        height: auto;
+        font-size: 14px;
+        margin-right: 5px;
     }
 }
 
-    
-    .responsive-img {
-        max-width: 100%;
-        height: auto;
-    }
-    
+/* ============ HERO ============ */
+#hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 86vh;
+    color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin-top: 130px;
+}
 
-    header .container{
-            display: flex;
-            justify-content: space-between; /* Coloca el logo a la izquierda y la navegación a la derecha */
-            align-items: center;
-            height: 100px; /* Ajusta según tu diseño */
-            padding: 0 10px; /* Ajusta el espacio alrededor del contenido del encabezado */
-        }
+#hero h1 {
+    color: white;
+    font-family: "Outfit", sans-serif;;
+}
 
+/* ============ SECCIONES ============ */
+#Aboutme .container,
+#Skills .container {
+    text-align: center;
+    padding: 100px 12px;
+}
 
-    .aboutmebtn, .previousjobsbtn, .contactbtn{
-        transition: all 0.3s ease-in-out;
-        font-family: "Dosis", sans-serif;
-      }
-      
-      .aboutmebtn, .previousjobsbtn, .contactbtn {
-        min-width: 150px; /* Establece un ancho mínimo */
-        width: 30%; /* Utiliza porcentaje para hacerlos más adaptables */
-        max-width: 200px; /* Establece un ancho máximo */
-        height: 60px;
-        border-radius: 50px;
-        background-image: linear-gradient(135deg, #feb692 0%, #ea5455 100%);
-        box-shadow: 0 20px 30px -6px rgba(238, 103, 97, 0.5);
-        outline: none;
-        cursor: pointer;
-        border: none;
-        font-size: 20px; font-family: 'Raleway', sans-serif; font-weight: bold;
-        color: white;
-    }
-    
-    /* Botones Dispositivos moviles  */
-    @media (max-width: 767px) {
-    
-        .aboutmebtn, .previousjobsbtn, .contactbtn {
-            min-width: fit-content; /* Establece un ancho mínimo */
-            max-width: fit-content;
-            min-height: 40px;
-            height: auto; /* Permite que la altura se ajuste automáticamente */
-            font-size: 15px; 
-            font-family: 'Raleway', sans-serif; 
-            font-weight: bold;
-            margin-right: 5px; /* Añade espacio entre los botones */
-        }
+#Skills .container {
+    padding: 200px 12px;
+}
 
-        .aboutmebtn {
-            /* ... tus propiedades comunes ... */
-            font-size: 14px; 
-          }
-    }
+/* ============ CONTACTO ============ */
+.contacticonsbox {
+    text-align: center;
+    padding: 50px 12px;
+}
 
-      .aboutmebtn:hover, .previousjobsbtn:hover, .contactbtn:hover{
-        transform: translateY(3px);
-        box-shadow: none;
-      }
-      
-      .aboutmebtn:active, .previousjobsbtn:active, .contactbtn:active {
-        opacity: 0.5;
-      }
+#contact a {
+    margin: 0 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: 0.5s;
+    background: rgba(0, 0, 0, 0);
+    color: var(--color);
+    font-size: 2.5em;
+    -webkit-box-reflect: below 1px linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
 
-      /* Colores de botones */
+#contact a:hover {
+    background: var(--color);
+    color: #050801;
+    box-shadow: 0 0 5px var(--color), 0 0 25px var(--color);
+    border-radius: 50%;
+}
 
-      .aboutmebtn {
-        /* ... tus propiedades comunes ... */
-        background: linear-gradient(to top, rgb(128, 0, 128), rgb(0, 0, 0));
-        box-shadow: 0 15px 20px -6px rgb(127, 2, 158);
-      }
-      
-      .previousjobsbtn {
-        /* ... tus propiedades comunes ... */
-        background: linear-gradient(to top, rgb(204, 101, 5), rgb(0, 0, 0));
-        box-shadow: 0 15px 20px -6px rgb(204, 101, 5);
-      }
-      
-      .contactbtn {
-        /* ... tus propiedades comunes ... */
-        background: linear-gradient(to top, rgb(0, 128, 0), rgb(0, 0, 0));
-        box-shadow: 0 15px 20px -6px rgb(0, 128, 0);
-      }
-      
-
-/* Hero of the page, it's the main thing the people see when they enter to my page  */
-    #hero{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        flex-direction: column;
-        height: 86vh;
-        color: white;
-        background-image: linear-gradient(
-            0deg,
-            rgba(0,0,0,0.5),
-            rgba(0,0,0,0.5)
-        )
-        ,url("media/workplace.webp");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        margin-top: 130px;
-    }
-
-    #hero h1{
-        color: white;
-        font-family: 'Raleway', sans-serif;
-    }
-
-    /* Sections container */
-    #Aboutme .container{
-        text-align: center;
-        padding: 100px 12px;
-    }
-
-    #Skills .container{
-        text-align: center;
-        padding: 200px 12px;
-    }
-
-
-    .contacticonsbox {
-        text-align: center;
-        padding: 50px 12px;
-    }
-
-    #contact a {
-        margin: 0 10px;
-        border-radius: 50%;
-        box-sizing: border-box;
-        background: #fff;
-        width: 100px;
-        height: 100px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        transition: 0.5s;
-        background: rgba(0, 0, 0, 0);
-        color: var(--color);
-        font-size: 2.5em;
-        -webkit-box-reflect: below 1px linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0), rgba(0,0,0,0.4));
-    }
-
-    #contact a:hover {
-        background: var(--color);
-        color: #050801;
-        box-shadow: 0 0 5px var(--color), 
-        0 0 25px var(--color);
-        border-radius: 50%;
-    }
-
-    footer #footer {
-        text-align: center;
-        font-size: 15px; /* Cambia el tamaño del texto según tu preferencia */
-    }
+/* ============ FOOTER ============ */
+footer #footer {
+    text-align: center;
+    font-size: 15px;
+}
