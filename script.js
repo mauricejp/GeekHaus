@@ -19,7 +19,7 @@ function scrollToContact() {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 }
 
-function goToPreviousJobs() {
+function goToCatalog() {
     // Navega en la misma pestaña a Boton2.html
     window.location.href = 'https://www.instagram.com/geekhaus.py/';
     // Si no quieres que la página anterior quede en el historial usa:
