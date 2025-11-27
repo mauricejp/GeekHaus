@@ -21,7 +21,7 @@ function scrollToContact() {
 
 function goToPreviousJobs() {
     // Navega en la misma pestaña a Boton2.html
-    window.location.href = 'Boton2.html';
+    window.location.href = 'https://www.instagram.com/geekhaus.py/';
     // Si no quieres que la página anterior quede en el historial usa:
     // window.location.replace('Boton2.html');
 }
