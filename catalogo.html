@@ -64,7 +64,23 @@
               <div class="admin-form">
                   <input type="text" id="new-prod-title" placeholder="Nombre del producto (ej: Manga Naruto Vol. 1)...">
                   <textarea id="new-prod-desc" rows="3" placeholder="Descripción breve del producto..."></textarea>
-                  <input type="text" id="new-prod-image" placeholder="URL de la imagen (dejar en blanco para usar icono)...">
+                  
+                  <!-- Contenedor interactivo para subir/pegar imágenes -->
+                  <div class="image-upload-wrapper">
+                      <label style="font-weight: bold; text-align: left; display: block; margin-bottom: 5px; color: #ffbf00; font-size: 14px;">Imagen del producto:</label>
+                      <div class="image-upload-container" id="image-upload-container">
+                          <div class="upload-placeholder" id="upload-placeholder">
+                              <i class="fa-solid fa-cloud-arrow-up" style="font-size: 30px; margin-bottom: 10px; color: #ffbf00;"></i>
+                              <p style="margin: 0; font-size: 14px; font-weight: bold; color: #eee;">Saca una foto, arrastra un archivo o pega una imagen aquí</p>
+                              <span style="font-size: 12px; color: #888;">(Desde celular, PC o portapapeles)</span>
+                          </div>
+                          <img id="image-preview" src="" alt="Vista previa de imagen" style="display: none; max-width: 100%; max-height: 200px; border-radius: 8px; object-fit: contain; margin: 0 auto;">
+                          <button type="button" id="remove-image-btn" style="display: none;" onclick="clearImageUpload()">🗑️ Quitar Imagen</button>
+                      </div>
+                      <input type="file" id="new-prod-file" accept="image/*" style="display: none;">
+                      <input type="text" id="new-prod-image" placeholder="O pega la URL de una imagen de internet aquí..." style="margin-top: 10px;">
+                  </div>
+                  
                   <input type="text" id="new-prod-price" placeholder="Precio del producto (ej: Gs. 50.000, Consultar, etc.)...">
                   
                   <label for="new-prod-icon" style="margin-top: 10px; font-weight: bold; text-align: left; display: block;">Selecciona un icono alternativo:</label>

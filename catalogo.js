@@ -34,6 +34,7 @@ const ADMIN_PASSWORD_HASH = 'bb6478238080e4322cccf4a6f501bccf48564adb54aa1ec8a07
 
 let products = [];
 let isAdmin = false;
+let uploadedBase64 = ''; // Almacena temporalmente la imagen subida/pegada en Base64
 
 // Initialize
 document.addEventListener('DOMContentLoaded', async () => {
@@ -43,10 +44,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         showAdminView();
     }
 
-    // 2. Load products from Supabase
+    // 2. Setup interactive image upload listeners (drag & drop, paste, click)
+    setupImageUpload();
+
+    // 3. Load products from Supabase
     await loadProducts();
 
-    // 3. Render
+    // 4. Render
     renderCatalog();
 });
 
@@ -219,9 +223,12 @@ function logoutAdmin() {
 async function addNewProduct() {
     const title = document.getElementById('new-prod-title').value.trim();
     const desc = document.getElementById('new-prod-desc').value.trim();
-    const img = document.getElementById('new-prod-image').value.trim();
+    const urlImg = document.getElementById('new-prod-image').value.trim();
     const icon = document.getElementById('new-prod-icon').value;
     const price = document.getElementById('new-prod-price').value.trim();
+
+    // Priorizar la imagen local subida/pegada en Base64, sino usar la URL de internet
+    const img = uploadedBase64 || urlImg;
 
     if (!title || !desc) {
         alert("Por favor rellena el título y la descripción.");
@@ -262,8 +269,8 @@ async function addNewProduct() {
             
             document.getElementById('new-prod-title').value = '';
             document.getElementById('new-prod-desc').value = '';
-            document.getElementById('new-prod-image').value = '';
             document.getElementById('new-prod-price').value = '';
+            clearImageUpload(); // Restablecer la carga de imagen
         } else {
             const errDetail = await response.text();
             throw new Error(`Error en la base de datos: ${errDetail}`);
@@ -272,6 +279,159 @@ async function addNewProduct() {
         console.error("Error al agregar el producto:", err);
         alert("Hubo un error al agregar el producto a la base de datos. Verifica la consola.");
     }
+}
+
+// Configurar triggers para la carga interactiva de imágenes (drag & drop, paste, click)
+function setupImageUpload() {
+    const container = document.getElementById('image-upload-container');
+    const fileInput = document.getElementById('new-prod-file');
+    const urlInput = document.getElementById('new-prod-image');
+    const preview = document.getElementById('image-preview');
+    const placeholder = document.getElementById('upload-placeholder');
+    const removeBtn = document.getElementById('remove-image-btn');
+
+    if (!container || !fileInput) return;
+
+    // Hacer clic en el contenedor abre la selección de archivos
+    container.addEventListener('click', (e) => {
+        if (e.target !== removeBtn) {
+            fileInput.click();
+        }
+    });
+
+    // Escuchar la selección de archivos (galería, cámara, etc.)
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            handleSelectedFile(file);
+        }
+    });
+
+    // Drag & Drop
+    container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        container.classList.add('dragover');
+    });
+
+    container.addEventListener('dragleave', () => {
+        container.classList.remove('dragover');
+    });
+
+    container.addEventListener('drop', (e) => {
+        e.preventDefault();
+        container.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            handleSelectedFile(file);
+        }
+    });
+
+    // Escuchar el evento de pegar (Ctrl+V) globalmente cuando el panel de administrador está visible
+    document.addEventListener('paste', (e) => {
+        if (!isAdmin) return;
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                const file = items[i].getAsFile();
+                handleSelectedFile(file);
+                break;
+            }
+        }
+    });
+
+    // Escuchar el input de la URL para mostrar vista previa en vivo
+    urlInput.addEventListener('input', () => {
+        const url = urlInput.value.trim();
+        if (url) {
+            preview.src = url;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+            removeBtn.style.display = 'block';
+            
+            // Si hay una URL de internet, borrar cualquier imagen local previamente cargada
+            fileInput.value = '';
+            uploadedBase64 = '';
+        } else {
+            if (!uploadedBase64) {
+                clearImageUpload();
+            }
+        }
+    });
+}
+
+// Procesar el archivo seleccionado, arrastrado o pegado
+function handleSelectedFile(file) {
+    const preview = document.getElementById('image-preview');
+    const placeholder = document.getElementById('upload-placeholder');
+    const removeBtn = document.getElementById('remove-image-btn');
+    const urlInput = document.getElementById('new-prod-image');
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        // Comprimir la imagen antes de subirla para no saturar la base de datos (max 800x800px)
+        compressImage(event.target.result, 800, 800, 0.7, (compressedBase64) => {
+            uploadedBase64 = compressedBase64;
+            preview.src = compressedBase64;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+            removeBtn.style.display = 'block';
+            urlInput.value = ''; // La imagen local toma prioridad
+        });
+    };
+    reader.readAsDataURL(file);
+}
+
+// Redimensionamiento y compresión de imagen usando HTML5 Canvas (salida JPEG comprimida)
+function compressImage(base64Str, maxWidth, maxHeight, quality, callback) {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = function() {
+        let width = img.width;
+        let height = img.height;
+
+        // Calcular nuevas dimensiones manteniendo relación de aspecto
+        if (width > height) {
+            if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+            }
+        } else {
+            if (height > maxHeight) {
+                width = Math.round((width * maxHeight) / height);
+                height = maxHeight;
+            }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convertir a base64 JPEG con la calidad indicada
+        const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+        callback(compressedBase64);
+    };
+}
+
+// Limpiar la imagen o URL seleccionada
+window.clearImageUpload = function() {
+    const fileInput = document.getElementById('new-prod-file');
+    const urlInput = document.getElementById('new-prod-image');
+    const preview = document.getElementById('image-preview');
+    const placeholder = document.getElementById('upload-placeholder');
+    const removeBtn = document.getElementById('remove-image-btn');
+
+    if (fileInput) fileInput.value = '';
+    if (urlInput) urlInput.value = '';
+    if (preview) {
+        preview.src = '';
+        preview.style.display = 'none';
+    }
+    if (placeholder) placeholder.style.display = 'block';
+    if (removeBtn) removeBtn.style.display = 'none';
+    uploadedBase64 = '';
 }
 
 // Delete Product from Supabase

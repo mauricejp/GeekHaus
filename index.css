@@ -763,3 +763,57 @@ footer #footer {
         max-width: 100%;
     }
 }
+
+/* ============ ADMIN IMAGE UPLOAD ============ */
+.image-upload-wrapper {
+    margin: 15px 0 20px 0;
+    text-align: left;
+}
+
+.image-upload-container {
+    border: 2px dashed rgba(255, 191, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-upload-container:hover {
+    background: rgba(255, 191, 0, 0.05);
+    border-color: #ffbf00;
+}
+
+.image-upload-container.dragover {
+    background: rgba(255, 191, 0, 0.15);
+    border-color: #ffbf00;
+    border-style: solid;
+}
+
+#remove-image-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(220, 53, 69, 0.9);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#remove-image-btn:hover {
+    background: #dc3545;
+    transform: scale(1.05);
+}
