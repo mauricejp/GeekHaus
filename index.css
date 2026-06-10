@@ -393,7 +393,8 @@ footer #footer {
 
 .catalog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    justify-content: center; /* Centra las tarjetas cuando no llenan la pantalla */
     gap: 30px;
     margin-top: 40px;
 }
@@ -403,7 +404,8 @@ footer #footer {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    margin-top: 0; /* Anula el margin-top por defecto de .carta */
+    max-width: 320px; /* Asegura un tamaño uniforme y fijo */
+    margin: 0 auto; /* Centra las tarjetas en sus celdas */
     padding: 30px 20px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -419,7 +421,7 @@ footer #footer {
 }
 
 .card-img-placeholder {
-    height: 180px;
+    height: 360px; /* Aumentado 100% (de 180px a 360px) */
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     display: flex;
@@ -798,9 +800,6 @@ footer #footer {
 }
 
 #remove-image-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
     background: rgba(220, 53, 69, 0.9);
     color: #fff;
     border: none;
