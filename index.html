@@ -1,46 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <title>Geek Haus</title>
+    <title>Geek Haus - Impresión 3D y Artículos Geek Personalizados</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="description" content="Geek Haus - Decoración y artículos geek personalizados en Paraguay. Impresión 3D a pedido, figuras de colección, mangas, cómics y pósters. ¡Traemos tus ideas a la realidad!">
+    <meta name="keywords" content="geek haus, impresion 3d paraguay, figuras coleccionables paraguay, mangas paraguay, comics paraguay, regalos geek, impresion 3d personalizada">
+    
+    <!-- Open Graph (Redes Sociales) -->
+    <meta property="og:title" content="Geek Haus - Impresión 3D y Artículos Geek">
+    <meta property="og:description" content="Decoración y artículos geek personalizados en Paraguay. Impresión 3D, mangas, cómics, figuras y más. ¡Haz tu pedido personalizado!">
+    <meta property="og:image" content="media/Logo GeekHaus sin fondo.png">
+    <meta property="og:type" content="website">
+    
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="CV english.pdf">
     <link rel="icon" href="media/Logo GeekHaus sin fondo.png" type="image/x-icon">
 </head>
 <body>
-    <!-- Header of the page, contains my Logo, and some navigation tools -->
-    <header class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
+  <!-- Header of the page, contains my Logo, and some navigation tools -->
+<header class="navbar">
+    <div class="container">
+        <div class="logo-container">
+            <a href="./" class="logo">
                 <img src="media/Logo%20GeekHaus%20sin%20fondo.png" alt="Logo GeekHaus" class="logo-img">
+                <span class="logo-text">Geek Haus</span>
             </a>
-            <nav>
-                <!-- <a id="aboutmenav" href="#Aboutme">About me</a>
-                <a id="previousjobs" href="#">Previous jobs</a>
-                <a id="skills" href="#Skills">Skills</a> -->
-                <button class="aboutmebtn" onclick="scrollToAboutMe()">
-                    <a>Información</a>
-                </button>
-                <button class="previousjobsbtn" onclick="goToCatalog()">
-                    <a target="_blank">Catálogo</a>
-                </button>
-                <button class="contactbtn" onclick="scrollToContact()">
-                    <a>Contacto</a>
-                </button>   
-            </nav>
         </div>
-    </header>
+        <nav>
+            <button class="aboutmebtn" onclick="scrollToAboutMe()">
+                <a>Información</a>
+            </button>
+            <button class="previousjobsbtn" onclick="goToCatalog()">
+                <a target="_blank">Catálogo</a>
+            </button>
+            <button class="contactbtn" onclick="scrollToContact()">
+                <a>Contacto</a>
+            </button>   
+        </nav>
+    </div>
+</header>
+
+
 
     <!-- Hero of the page, it's the main thing the people see when they enter to my page -->
-    <!-- Hero of the page, it's the main thing the people see when they enter to my page -->
-    <section id="hero">
-        <h1>Hacer un pedido</h1>
-        <a href="https://wa.me/595982098001" target="_blank" class="btn btn-hero">
-            WhatsApp
+<section id="hero">
+    <h1>Hacer un pedido</h1>
+    <div class="hero-buttons">
+        <a href="#pedido-3d" class="btn btn-hero">
+            3D personalizado
         </a>
-    </section>
+        <a target="_blank" onclick="goToCatalog()" class="btn btn-hero">
+            Del Catálogo
+        </a>
+    </div>
+</section>
 
+    <!-- Custom 3D Order Flow (Buscador Puente) -->
+    <section id="pedido-3d">
+        <div class="container">
+            <h2>¿Tenés un diseño en mente?</h2>
+            <p>Si no encontrás lo que buscás en nuestro catálogo, podés explorar las mayores bases de datos 3D del mundo. Escribe lo que deseas aquí abajo para empezar tu búsqueda. Si usas plataformas como <a href="https://cults3d.com/es" target="_blank" class="text-link">Cults3D</a> o <a href="https://www.thingiverse.com/" target="_blank" class="text-link">Thingiverse</a>, puedes ingresar directamente a ellas desde sus nombres.</p>
+            
+            <div class="buscador-puente">
+                <div class="search-input-group">
+                    <input type="text" id="search-3d-query" placeholder="¿Qué modelo 3D estás buscando? (Ej: Iron Man, Maceta...)">
+                </div>
+                <div class="search-buttons">
+                    <button onclick="buscarMakerWorld()" class="btn-search">Buscar en MakerWorld</button>
+                    <button onclick="buscarCults3D()" class="btn-search">Buscar en Cults3D</button>
+                </div>
+            </div>
+
+            <div class="retorno-link-container">
+                <label for="client-model-link">¡Ya elegí mi modelo! Pegá el link aquí:</label>
+                <input type="url" id="client-model-link" placeholder="https://...">
+                
+                <button onclick="enviarPedidoWhatsApp()" class="btn-whatsapp-final">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
 
     <section id="Aboutme">
        <div class="container">       
@@ -74,12 +115,6 @@
                 </div>
                 
         </div>
-    </section>
-
-
-
-
-    </div>
     </section>
 
     <section id="contact">

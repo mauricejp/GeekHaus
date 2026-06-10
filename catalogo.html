@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Catálogo - Geek Haus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="description" content="Explora el catálogo de productos de Geek Haus: Impresión 3D personalizada, mangas, cómics, pósters y figuras de colección en Paraguay.">
+    <meta name="keywords" content="geek haus catalogo, impresion 3d paraguay, figuras coleccionables, mangas paraguay, comics paraguay">
+    
+    <!-- Open Graph (Redes Sociales) -->
+    <meta property="og:title" content="Catálogo de Productos - Geek Haus">
+    <meta property="og:description" content="Explora nuestras creaciones y servicios de impresión 3D personalizados. Todo diseñado y fabricado con dedicación geek en Paraguay.">
+    <meta property="og:image" content="media/Logo GeekHaus sin fondo.png">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="media/Logo GeekHaus sin fondo.png" type="image/x-icon">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+</head>
+<body>
+  <!-- Header identical to index.html -->
+  <header class="navbar">
+      <div class="container">
+          <div class="logo-container">
+              <a href="./" class="logo">
+                  <img src="media/Logo%20GeekHaus%20sin%20fondo.png" alt="Logo GeekHaus" class="logo-img">
+                  <span class="logo-text">Geek Haus</span>
+              </a>
+          </div>
+          <nav>
+              <button class="aboutmebtn" onclick="window.location.href='./#Aboutme'">
+                  <a>Información</a>
+              </button>
+              <button class="previousjobsbtn" onclick="window.location.href='catalogo'">
+                  <a>Catálogo</a>
+              </button>
+              <button class="contactbtn" onclick="window.location.href='./#contact'">
+                  <a>Contacto</a>
+              </button>   
+          </nav>
+      </div>
+  </header>
+
+  <!-- Catalog Section -->
+  <section id="catalog-section">
+      <div class="container">
+          <h2>Catálogo de Productos</h2>
+          <p>Explora nuestras creaciones y servicios personalizados. Todo diseñado y fabricado con dedicación geek.</p>
+          
+          <div class="catalog-grid" id="catalog-grid-container">
+              <!-- Cargando... -->
+              <div style="grid-column: 1/-1; text-align: center; padding: 50px 0;">
+                  <i class="fa-solid fa-spinner fa-spin" style="font-size: 40px; color: #ffbf00; margin-bottom: 15px;"></i>
+                  <p style="margin: 0; font-size: 18px; color: #aaa;">Cargando catálogo...</p>
+              </div>
+          </div>
+
+          <!-- Admin Control Panel (Visible only when logged in as admin) -->
+          <div id="admin-control-panel" class="admin-panel" style="display:none;">
+              <h3>Panel de Administración</h3>
+              <p>Agrega un nuevo producto al catálogo. Si no ingresas una URL de imagen, se usará el icono seleccionado.</p>
+              
+              <div class="admin-form">
+                  <input type="text" id="new-prod-title" placeholder="Nombre del producto (ej: Manga Naruto Vol. 1)...">
+                  <textarea id="new-prod-desc" rows="3" placeholder="Descripción breve del producto..."></textarea>
+                  <input type="text" id="new-prod-image" placeholder="URL de la imagen (dejar en blanco para usar icono)...">
+                  <input type="text" id="new-prod-price" placeholder="Precio del producto (ej: Gs. 50.000, Consultar, etc.)...">
+                  
+                  <label for="new-prod-icon" style="margin-top: 10px; font-weight: bold; text-align: left; display: block;">Selecciona un icono alternativo:</label>
+                  <select id="new-prod-icon">
+                      <option value="fa-cubes-three-d">Impresión 3D (Cajas 3D)</option>
+                      <option value="fa-book-open">Libro / Manga</option>
+                      <option value="fa-palette">Paleta de Arte / Sticker</option>
+                      <option value="fa-gamepad">Control de Videojuegos</option>
+                      <option value="fa-star">Estrella</option>
+                      <option value="fa-tags">Etiqueta de Precio</option>
+                  </select>
+                  
+                  <button onclick="addNewProduct()" class="btn-card" style="margin-top: 15px; width: 100%;">Agregar al Catálogo</button>
+              </div>
+              
+              <div class="admin-actions">
+                  <button onclick="logoutAdmin()" class="btn-card btn-logout">Cerrar Sesión</button>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Admin Login Modal -->
+  <div id="admin-login-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+          <h3>Acceso Administrador</h3>
+          <p>Introduce la contraseña para habilitar la edición del catálogo.</p>
+          <input type="password" id="admin-password-input" placeholder="Contraseña...">
+          <button onclick="loginAdmin()" class="btn-card" style="width: 100%;">Ingresar</button>
+          <p id="login-error-msg" class="error-text" style="display:none;">Contraseña incorrecta</p>
+      </div>
+  </div>
+
+  <!-- Floating Admin FAB -->
+  <button id="admin-fab" onclick="toggleAdminPanel()" title="Modo Administrador">
+      <i class="fa-solid fa-lock"></i>
+  </button>
+
+  <!-- Footer identical to index.html -->
+  <footer>
+      <div class="container">
+          <p id="footer">&copy; Geek Haus</p>
+      </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="catalogo.js"></script>
+</body>
+</html>
