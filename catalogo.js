@@ -288,13 +288,14 @@ function setupImageUpload() {
     const urlInput = document.getElementById('new-prod-image');
     const preview = document.getElementById('image-preview');
     const placeholder = document.getElementById('upload-placeholder');
-    const removeBtn = document.getElementById('remove-image-btn');
+    const controls = document.getElementById('image-preview-controls');
 
     if (!container || !fileInput) return;
 
     // Hacer clic en el contenedor abre la selección de archivos
     container.addEventListener('click', (e) => {
-        if (e.target !== removeBtn) {
+        // Solo abrir el diálogo si no se hizo clic en uno de los botones de control
+        if (e.target.tagName !== 'BUTTON') {
             fileInput.click();
         }
     });
@@ -346,7 +347,7 @@ function setupImageUpload() {
             preview.src = url;
             preview.style.display = 'block';
             placeholder.style.display = 'none';
-            removeBtn.style.display = 'block';
+            if (controls) controls.style.display = 'flex';
             
             // Si hay una URL de internet, borrar cualquier imagen local previamente cargada
             fileInput.value = '';
@@ -363,7 +364,7 @@ function setupImageUpload() {
 function handleSelectedFile(file) {
     const preview = document.getElementById('image-preview');
     const placeholder = document.getElementById('upload-placeholder');
-    const removeBtn = document.getElementById('remove-image-btn');
+    const controls = document.getElementById('image-preview-controls');
     const urlInput = document.getElementById('new-prod-image');
 
     const reader = new FileReader();
@@ -374,7 +375,7 @@ function handleSelectedFile(file) {
             preview.src = compressedBase64;
             preview.style.display = 'block';
             placeholder.style.display = 'none';
-            removeBtn.style.display = 'block';
+            if (controls) controls.style.display = 'flex';
             urlInput.value = ''; // La imagen local toma prioridad
         });
     };
@@ -415,13 +416,48 @@ function compressImage(base64Str, maxWidth, maxHeight, quality, callback) {
     };
 }
 
+// Girar la imagen cargada 90 grados a la derecha
+window.rotateImage90Deg = function() {
+    const preview = document.getElementById('image-preview');
+    const urlInput = document.getElementById('new-prod-image');
+    const activeImage = uploadedBase64 || urlInput.value.trim();
+
+    if (!activeImage) return;
+
+    const img = new Image();
+    img.src = activeImage;
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        // Intercambiar dimensiones para rotación de 90 grados
+        canvas.width = img.height;
+        canvas.height = img.width;
+
+        const ctx = canvas.getContext('2d');
+        // Trasladar origen al centro de rotación y rotar
+        ctx.translate(canvas.width, 0);
+        ctx.rotate(Math.PI / 2);
+        ctx.drawImage(img, 0, 0);
+
+        // Generar nuevo base64
+        const rotatedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+        uploadedBase64 = rotatedBase64;
+        
+        if (preview) {
+            preview.src = rotatedBase64;
+        }
+        
+        // Si originalmente era una URL externa, ahora pasa a ser base64 local
+        urlInput.value = '';
+    };
+};
+
 // Limpiar la imagen o URL seleccionada
 window.clearImageUpload = function() {
     const fileInput = document.getElementById('new-prod-file');
     const urlInput = document.getElementById('new-prod-image');
     const preview = document.getElementById('image-preview');
     const placeholder = document.getElementById('upload-placeholder');
-    const removeBtn = document.getElementById('remove-image-btn');
+    const controls = document.getElementById('image-preview-controls');
 
     if (fileInput) fileInput.value = '';
     if (urlInput) urlInput.value = '';
@@ -430,7 +466,7 @@ window.clearImageUpload = function() {
         preview.style.display = 'none';
     }
     if (placeholder) placeholder.style.display = 'block';
-    if (removeBtn) removeBtn.style.display = 'none';
+    if (controls) controls.style.display = 'none';
     uploadedBase64 = '';
 }
 

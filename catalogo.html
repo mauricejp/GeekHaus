@@ -75,7 +75,12 @@
                               <span style="font-size: 12px; color: #888;">(Desde celular, PC o portapapeles)</span>
                           </div>
                           <img id="image-preview" src="" alt="Vista previa de imagen" style="display: none; max-width: 100%; max-height: 200px; border-radius: 8px; object-fit: contain; margin: 0 auto;">
-                          <button type="button" id="remove-image-btn" style="display: none;" onclick="clearImageUpload()">🗑️ Quitar Imagen</button>
+                          
+                          <!-- Botones de control flotantes sobre la imagen preview -->
+                          <div class="image-preview-controls" id="image-preview-controls" style="display: none; position: absolute; top: 10px; right: 10px; gap: 8px; z-index: 10;">
+                              <button type="button" id="rotate-image-btn" onclick="rotateImage90Deg()" style="background: rgba(255, 191, 0, 0.9); color: #111; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: background 0.2s ease, transform 0.1s ease;">🔄 Girar 90°</button>
+                              <button type="button" id="remove-image-btn" onclick="clearImageUpload()" style="background: rgba(220, 53, 69, 0.9); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: background 0.2s ease, transform 0.1s ease;">🗑️ Quitar</button>
+                          </div>
                       </div>
                       <input type="file" id="new-prod-file" accept="image/*" style="display: none;">
                       <input type="text" id="new-prod-image" placeholder="O pega la URL de una imagen de internet aquí..." style="margin-top: 10px;">
